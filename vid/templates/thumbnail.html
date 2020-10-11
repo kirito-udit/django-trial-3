@@ -1,0 +1,40 @@
+{% load static %}
+{% static "images" as baseURL %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Itna hi bana hai Abhi</title>
+  </head>
+  <body style="background-color:antiquewhite">
+    <h1>Strangeflix-: By Udit, Shaurya and Jagrati</h1>
+    <h2><a href = "{% url 'video'%}"> Free Giveaway here</a></h2>
+    <form action="{% url 'search' %}" class="form-inline" method="get">
+      <div class="form-group mx-sm-3 mb-2">
+      <label for="" class="sr-only">search</label>
+      <input name="search" type="" class="form-control" id="" placeholder="type for search">
+      </div>
+    <button type="submit" class="btn btn-primary btn-lg mb-2">search</button>
+  </form>
+    {% for i in obj2 %}
+    <a href="{% url 'play' i.pk %}">
+    <img src="{{i.image.url}}" alt="" ></a><br>
+    <a href="{% url 'play' i.pk %}">{{i.title}}</a>
+    <p>{{i.des}}</p>
+    {% endfor %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0" nonce="04Fk3TSv"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>
+

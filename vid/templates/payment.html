@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<h1><a href="{% url 'home'%}">Skip for Now??</a></h1>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<div class="card bg-light">
+<article class="card-body mx-auto" style="max-width: 400px;">
+	<h4 class="card-title mt-3 text-center">Payment Gateway</h4>
+	<p class="text-center">Kindly Provide your credentials here</p>
+	<p>
+		<a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+		<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+	</p>
+	<form>
+        <div id="paypal-button-container" style="position: static; align-self: baseline;" ></div>
+
+        <!-- Include the PayPal JavaScript SDK -->
+        <script src="https://www.paypal.com/sdk/js?client-id=ASLTTpy67VtbudGVC6jxD8fPqh_H0axdxq-blKIUyKd3hkZOxX71pn8BXfWulIk0GAdT29R8yE9Kd9yX&currency=INR"></script>
+    
+        <script>
+            // Render the PayPal button into #paypal-button-container
+            paypal.Buttons({
+    
+                style: {
+                    color:  'blue',
+                    shape:  'pill',
+                    label:  'pay',
+                    height: 40
+                }
+    
+            }).render('#paypal-button-container');
+        </script>
+    </body>
+         
+</form>
+</article>
+</div> <!-- card.// -->
+<br> <form><h3 style="align-content: center;">This site is managed by my Webster team</h3></form>
+</div> 
+<!--container end.//-->
+
+<head>
+    <!-- Add meta tags for mobile and IE -->
+
+</head>
