@@ -4,11 +4,16 @@ from . import views
 #from django.contrib.auth.views import LoginView
 import django.contrib.auth.views
 urlpatterns = [
-    path('gallery', views.thumbnail, name = "home"),
-    path('',views.payment, name = "payment"),
+    # URL FOR THE THUMBNAIL(HOME) PAGE
+    path('', views.thumbnail, name = "home"),
+    # URL PATTERN FOR THE PAYPAL PAYMENT PAGE
+    path('(?P<title>',views.payment, name = "payment"),
+    # URL PATTERN FOR THE GIVEAWAY PAGE
     path('video', views.video,name = "video"),
-   path('play/(?P<title>/', views.vidDetails, name = "play"),
+        # URL PATTERN FOR THE PAID VIDEO PLAYER (DYNAMIC URL MAPPING)
+   path('(?P<title>', views.vidDetails, name = "play"),
+       # URL PATTERN FOR THE SEARCH RESULTS PAGE
    path('search/',views.search,name='search'),
+   path('play/(?P<title>/comment',views.comment, name="comment"),
 
-    
 ]

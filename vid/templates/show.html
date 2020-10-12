@@ -10,20 +10,34 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
+    <!--THE VIDEO PLAYER -->
     <title>Watch{{school.title}} Online </title>
   </head>
   <body>
     <h1><a href="{% url 'home' %}">StrangeFlix</a></h1>
-    <hr>
     <div class="container">
         <h3 class="text-center mt-2 mb-2">{{school.title}}</h3>
         <video class="embed-responsive embed-responsive-16by9" controls="controls" id = "video1">
+          <track kind="captions" srclang="en" default src="{{school.subtitle.url}}" label="English" >
             <source src="{{school.vid.url}}" type="video/mp4" />
+           
           </video>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <div class="container">
+      Comments <br>
+      <div class ="form-group">
+    <form method="POST" enctype="multipart/form-data" action="comment" class="commentsform">
+    {%csrf_token%}
+    <input type="text" placeholder="Your Comment" name="comment">
+    <a href = "{% url 'home' %}"><input type="submit" value="Comment"></a>
+      {% for comments in school.comments.all %}
+      <strong>
+      {{comments.content}}
+      </strong><br>
+      {{comments.date_posted}}
+      {% endfor %}
+    </div>
+     <!----IMPLEMENTATION OF SEEK FEATURE UNDER PROGRESS-->
     <script>
         document.getElementById("video1").addEventListener("loadedmetadata", function() {
              this.currentTime = 10;
