@@ -9,7 +9,7 @@ urlpatterns = [
     path('',include('login.urls')),
     path('',include('signup.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
-    
+
 ]
 
 #urlpatterns += staticfiles_urlpatterns()
