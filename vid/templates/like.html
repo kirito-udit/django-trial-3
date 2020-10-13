@@ -1,7 +1,7 @@
 <div class="container center">
    <!---- {% if user.is_authenticated %} -->
 
-    <form action = "{% url 'like-post'%}" method = "post">
+    <form action = "{% url 'like-post' school.pk %}" method = "post">
       {% csrf_token %}
       {% if not is_liked %}
     <a name = "post_id" id = "like" class = "btn-floating pink lighten-2 " value = "{{post.id}}" type = "submit">     <i id="love" class="material-icons white-text">favorite</i>          </a>
@@ -10,7 +10,7 @@
      <a name = "post_id" id = "like" class = "btn-floating pink lighten-2 " value = "{{post.id}}" type = "submit">     <i id="love" class="material-icons red-text">favorite</i>      </a>
 
      {% endif %}
-     <p>{{post.likers.count}} peopleliked</p>
+     <p>{{school.likers.count}} peopleliked</p>
     </form>
     {% else %}
     <button> {{post.likers.count}} Likes </button>

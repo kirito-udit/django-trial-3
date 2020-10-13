@@ -11,9 +11,10 @@ urlpatterns = [
     # URL PATTERN FOR THE GIVEAWAY PAGE
     path('video', views.video,name = "video"),
         # URL PATTERN FOR THE PAID VIDEO PLAYER (DYNAMIC URL MAPPING)
-   path('(?P<title>', views.vidDetails, name = "play"),
+   path('(.?P<title>', views.vidDetails, name = "play"),
        # URL PATTERN FOR THE SEARCH RESULTS PAGE
    path('search/',views.search,name='search'),
    path('play/(?P<title>/comment',views.comment, name="comment"),
+    path('like/(?P<title>', views.likepost, name = "like-post"),
 
 ]

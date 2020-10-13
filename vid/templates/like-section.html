@@ -1,0 +1,19 @@
+<div class="container center">
+    {% if user.is_authenticated %}
+
+    <form action = "{% url 'like-post'%}" method = "post">
+      {% csrf_token %}
+      {% if not is_liked %}
+    <a name = "post_id" id = "like" class = "btn-floating pink lighten-2 " value = "{{school.pk}}" type = "submit">  <i id="love" class="material-icons white-text">favorite</i>          </a>
+
+     {% else %}
+     <a name = "post_id" id = "like" class = "btn-floating pink lighten-2 " value = "{{school.pk}}" type = "submit">     <i id="love" class="material-icons red-text">favorite</i>      </a>
+
+     {% endif %}
+     <p>{{school.likers.count}} peopleliked</p>
+    </form>
+    {% else %}
+    <button> {{school.likers.count}} Likes </button>
+    {% endif %}
+
+</div>

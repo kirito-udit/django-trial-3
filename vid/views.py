@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Item,Detail,Comment
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.db.models import Q
 from .forms import CommentForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 # Create your views here.
 # THIS FUNCTION RETURNS THE VIDEO EMBEDDING REQUEST
 @login_required
@@ -13,7 +14,7 @@ def video(request):
     return render(request,'video.html',{'obj':obj})
 
 # THIS FUNCTION RETURNS THE PAYMENT REQUEST
-# @login_required   
+ #@login_required   
 def payment(request, title):
     school = get_object_or_404(Detail, pk=title)
     return render(request,'payment.html',{'school': school})
@@ -51,3 +52,20 @@ def comment(request,title):
         else:
            return HttpResponse('NOt Done')
 
+
+def likepost(request, title):
+    post = get_object_or_404(Detail,pk = title)
+    is_liked = False
+    if (post.likers.filter(username = request.user.username).exists()):
+        post.likers.remove(request.user)
+        is_liked = False
+    else:
+        post.likers.add(request.user)
+        is_liked = True
+
+    context = {
+        'is_liked' : is_liked,
+        'school' : post
+    }
+    html = render_to_string('like.html',context, request = request)
+    return JsonResponse({'like':html})

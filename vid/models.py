@@ -16,7 +16,8 @@ class Detail(models.Model):
      des = models.TextField(max_length=200)
      title = models.TextField(max_length=200,null=True)
      vid = models.FileField(upload_to='videos', null=True)
-     subtitle = models.FileField(upload_to='subtitle', null=True)
+     #subtitle = models.FileField(upload_to='subtitle', null=True)
+     likers = models.ManyToManyField(User, related_name = 'likers', blank = True)
      def __str__(self):
          return self.title
 
