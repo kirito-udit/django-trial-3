@@ -14,7 +14,9 @@ urlpatterns = [
    path('(.?P<title>', views.vidDetails, name = "play"),
        # URL PATTERN FOR THE SEARCH RESULTS PAGE
    path('search/',views.search,name='search'),
-   path('play/(?P<title>/comment',views.comment, name="comment"),
+   path('play/(?P<title>/comment',views.commentpost, name="comment-post"),
     path('like/(?P<title>', views.likepost, name = "like-post"),
+    path('report/(?P<title>', views.reportpost, name = "report-post"),
+    path('(/?P<title>', views.vidplay, name = "played"),
 
 ]

@@ -1,0 +1,16 @@
+<div class="container">
+      Comments Trial<br>
+      <div class ="form-group">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'comment-post' school.pk %}" class="comment" name="comment">
+    {%csrf_token%}
+    <input type="text" placeholder="Your Comment" name="comment" value = "{{post.id}}" id="comment">
+    <input type = "submit">
+      {% for comments in school.comments.all %}
+      <strong>
+      {{comments.content}}
+      </strong><br>
+      {{comments.date_posted}}
+      {% endfor %}
+    </div>
+
+ 

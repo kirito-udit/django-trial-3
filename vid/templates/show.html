@@ -1,5 +1,7 @@
 {% load static %}
-
+ <link rel = "icon" href =  
+    "https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/23197467/original/7fe4f022a60d8c54335a09d1ed3ad86b86df63f6/design-an-impressive-logo.jpg" 
+            type = "image/x-icon"> 
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,22 +26,11 @@
             <source src="{{school.vid.url}}" type="video/mp4" />
            
           </video>
+          <a href="{% url 'played' school.pk%}"> Watch Full Movie Here</a>
     </div>
     <div id="like-section"> {% include 'like.html' %} </div>
-    <div class="container">
-      Comments <br>
-      <div class ="form-group">
-    <form method="POST" enctype="multipart/form-data" action="comment" class="commentsform">
-    {%csrf_token%}
-    <input type="text" placeholder="Your Comment" name="comment">
-    <a href = "{% url 'home' %}"><input type="submit" value="Comment"></a>
-      {% for comments in school.comments.all %}
-      <strong>
-      {{comments.content}}
-      </strong><br>
-      {{comments.date_posted}}
-      {% endfor %}
-    </div>
+      <div id="comment-section"> {% include 'comment.html' %} </div>
+      <div id="report-section"> {% include 'report.html' %} </div>
      <!----IMPLEMENTATION OF SEEK FEATURE UNDER PROGRESS-->
     <script>
         
@@ -70,8 +61,66 @@
   
           });
         })
-    </script>
+          </script>
+          <script>
+        $(document).ready(function(event) {
+          $(document).on('click', '#report', function(event) {
+              event.preventDefault();
   
+  
+              var pk = $(this).attr('value');
+  
+  
+              $.ajax({
+                  type: 'POST',
+                  url: "{% url 'report-post' school.pk %}",
+                  data: {
+                      'id': pk,
+                      'csrfmiddlewaretoken': '{{csrf_token}}'
+                  },
+                  success: function(response) {
+                      $('#report-section').html(response['report'])
+                      console.log('Success');
+                      // $("#love").addClass("red-text");
+                  },
+                  error: function(rs, e) {
+                      console.log(rs.responseText);
+                  }
+              });
+  
+          });
+        })
+    </script>
+   <script>
+        
+        $(document).ready(function(event) {
+          $(document).on('click', '#comment', function(event) {
+              event.preventDefault();
+  
+  
+              var pk = $(this).attr('value');
+  
+  
+              $.ajax({
+                  type: 'POST',
+                  url: "{% url 'comment-post' school.pk %}",
+                  data: {
+                      'id': pk,
+                      'csrfmiddlewaretoken': '{{csrf_token}}'
+                  },
+                  success: function(response) {
+                      $('#comment-section').html(response['comment'])
+                      console.log('Success');
+                      // $("#love").addClass("red-text");
+                  },
+                  error: function(rs, e) {
+                      console.log(rs.responseText);
+                  }
+              });
+  
+          });
+        })
+          </script>
    
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

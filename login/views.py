@@ -9,10 +9,14 @@ from django.contrib import messages
 import requests
 from django.http import JsonResponse
 from vid2 import urls
+import time
 
 def login_page(request):
+    time.sleep(3)
     return render(request, 'signin.html')
 
+def intro(request):
+    return render(request, 'intro.html')
 def user_login(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -29,6 +33,10 @@ def user_login(request):
         return render(request, 'signin.html')
 
 
-
+def pagelogout(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('login')
+    return render(request,'logout.html')
 
 

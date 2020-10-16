@@ -1,330 +1,441 @@
 {% load static %} {% block head %}
-<link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
-<link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
-
-<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/signup.css' %}">
-<link rel="stylesheet" href="{% static 'css/verify.css' %}">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-
-<style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-    
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
-    }
-</style>
-
-
-<style>
-    body {
-        padding: 2em;
-    }
-    /* Shared */
-    
-    .loginBtn {
-        box-sizing: border-box;
-        position: relative;
-        /* width: 13em;  - apply for fixed size */
-        margin: 0.2em;
-        padding: 0 15px 0 46px;
-        border: none;
-        text-align: left;
-        line-height: 34px;
-        white-space: nowrap;
-        border-radius: 0.2em;
-        font-size: 16px;
-        color: #FFF;
-    }
-    
-    .loginBtn:before {
-        content: "";
-        box-sizing: border-box;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 34px;
-        height: 100%;
-    }
-    
-    .loginBtn:focus {
-        outline: none;
-    }
-    
-    .loginBtn:active {
-        box-shadow: inset 0 0 0 32px rgba(0, 0, 0, 0.1);
-    }
-    /* Facebook */
-    
-    .loginBtn--facebook {
-        background-color: #4C69BA;
-        background-image: linear-gradient(#4C69BA, #3B55A0);
-        /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
-        text-shadow: 0 -1px 0 #354C8C;
-    }
-    
-    .loginBtn--facebook:before {
-        border-right: #364e92 1px solid;
-        background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
-    }
-    
-    .loginBtn--facebook:hover,
-    .loginBtn--facebook:focus {
-        background-color: #5B7BD5;
-        background-image: linear-gradient(#5B7BD5, #4864B1);
-    }
-    /* Google */
-    
-    .loginBtn--github {
-        /*font-family: "Roboto", Roboto, arial, sans-serif;*/
-        background: black;
-    }
-    
-    .loginBtn--github:before {
-        border-right: white 1px solid;
-        background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_github.png') 6px 6px no-repeat;
-    }
-    
-    .loginBtn--github:hover,
-    .loginBtn--github:focus {
-        background: black;
-    }
-</style>
-{% endblock %} {% block title %} Sign In {% endblock %} {% block content %} {% if error %}
-<script>
-    alert('INCORRECT LOGIN OR PASSWORD PLEASE RETRY');
-</script>
-{%endif%}
-<div class="preloader d-flex align-items-center justify-content-center">
-    <div class="spinner">
-        <div class="double-bounce1"></div>
-        <div class="double-bounce2"></div>
-    </div>
-</div>
-
-<div class="container demo">
-    <div class="content">
-        <div id="large-header" class="large-header">
-            <canvas id="demo-canvas"></canvas>
-            <h1 class="main-title"><span class="thin"></span> </h1>
-        </div>
-    </div>
-</div>
-
-<body>
-
-    <form autocomplete='off' method="POST" class='form form-signin'>
-        {% csrf_token %}
-        <div class='control block-cube block-input'>
-            <h1 style="color: aliceblue;">
-                Sign In
-            </h1>
-        </div>
-        <label for="username">Username:</label>
-        <div class='control block-cube block-input'>
-            <input name='username' placeholder='username' type='username' required>
-            <div class='bg-top'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg-right'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg'>
-                <div class='bg-inner'></div>
-            </div>
-        </div>
-        <label for="password">Password:</label>
-        <div class='control block-cube block-input'>
-            <input name='password' placeholder='password' type='password' required>
-            <div class='bg-top'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg-right'>
-                <div class='bg-inner'></div>
-            </div>
-            <div class='bg'>
-                <div class='bg-inner'></div>
-            </div>
-        </div>
-
-
-        <button class='btn block-cube block-cube-hover' type='submit'>
-    <div class='bg-top'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='bg-right'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='bg'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='text'>
-      Sign In
-    </div>
-  </button><br>
-
-
-
-        <br><span></span>
-        <a style="color: aliceblue;" href="/signup/">New User? Sign Up Here.</a>
-        <br><br><span></span>
-        <a style="color: aliceblue;" href="#">Forgot Password?</a><br><br><span></span>
-        <div class='credits'>
-            <!-- <a href='../'>
-      &copy; StrangeFlix
-    </a> -->
-        </div>
-
-
-        <button class="loginBtn loginBtn--facebook">
-    <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-  </button>
-
-        <button class="loginBtn loginBtn--github"> 
-    <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
-  </button>
-
-    </form>
-
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/TweenLite.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/EasePack.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo.js"></script>
-    <script src="{% static 'js/jquery/jquery-2.2.4.min.js'%}"></script>
-
-    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
-
-    <script src="{% static 'js/bootstrap/bootstrap.min.js'%}"></script>
-
-    <script src="{% static 'js/plugins/plugins.js'%}"></script>
-
-    <script src="{% static 'js/active.js'%}"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-    {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- {% load static %}
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="SMP, MNNITA">
-    <meta name="generator" content="Jekyll v4.0.1">
-    <title>Free Trial - AR Lab</title>
+    <link rel = "icon" href =  
+    "https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/23197467/original/7fe4f022a60d8c54335a09d1ed3ad86b86df63f6/design-an-impressive-logo.jpg" 
+            type = "image/x-icon"> 
+    {% block title %} Sign In {% endblock %} {% if error %}
+    <script>
+        alert('INCORRECT LOGIN OR PASSWORD PLEASE RETRY');
+    </script>
+    {%endif%}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width", initial-scale=1.0;>
+        <title>StrangeFlix | Login </title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-    <link rel="stylesheet" href="{% static 'css/verify.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css">
+        <link rel="stylesheet" href="/style.css">   
+       <style>
+        body
+{
+      background-color: #181828;
+}
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+#mainCoantiner
+{
+    background-color: #181828;
+  height:100%;
+  width:100%;
+  padding-bottom: 50px;
+}
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+
+/*************header*******/
+
+.main-header {
+    top: 0;
+    left: 0;
+    z-index: 20;
+    -webkit-transform: translate3d(0,0,0);
+    height: 70px;
+    width: 100%;
+    bottom: inherit;
+    text-align: center;
+    background: rgba(28, 31, 47, 0.16);
+    overflow: hidden;
+    border: 1px solid #2e344d;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -ms-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+    box-shadow: 10px 10px 36px rgb(0,0,0,0.5), -13px -13px 23px rgba(255,255,255, 0.03);
+    border-width: 1px 0px 0 1px;
+}
+
+.folio-btn {
+    position: absolute;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    right: 0;
+    height: 70px;
+    width: 70px;
+}
+
+.folio-btn-item {
+position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 15px;
+    top: 15px;
+}
+
+.folio-btn-dot {
+    float: left;
+    width: 33.3%;
+    height: 33.3%;
+    position: relative;
+}
+
+.folio-btn-dot:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    margin: -2px 0 0 -2px;
+    border-radius: 50%;
+    transition: all 300ms linear;
+    transform: scale(1.0);
+}
+
+.folio-btn-dot:before
+{
+  background: #00BCD4;
+}
+
+.folio-btn:hover .folio-btn-dot:first-child:before, .folio-btn:hover .folio-btn-dot:nth-child(3):before, .folio-btn:hover .folio-btn-dot:nth-child(4):before, .folio-btn:hover .folio-btn-dot:nth-child(8):before {
+    transform: scale(1.8);
+    opacity: 0.5;
+}
+
+
+
+.header-social {
+position: absolute;
+    z-index: 20;
+    width: auto;
+    bottom: 17px;
+    right: 90px;
+    padding: 0;
+    min-width: 140px;
+    box-shadow: 3px 9px 16px rgb(0,0,0,0.4), -3px -3px 10px rgba(255,255,255, 0.06), inset 14px 14px 26px rgb(0,0,0,0.3), inset -3px -3px 15px rgba(255,255,255, 0.05);
+    border-width: 1px 0px 0px 1px;
+    border-style: solid;
+    border-color: #2e344d;
+}
+
+.header-social:before
+{
+  background: #00BCD4;
+}
+
+.header-social:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -3px;
+    width: 36px;
+    margin-left: -18px;
+    height: 6px;
+}
+
+.header-social li {
+    display: block;
+    float: left;
+    margin-top: 0;
+}
+
+.header-social li a {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    font-size: 12px;
+    border-style: solid;
+    color: rgba(255, 255, 255, 0.41);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 300ms linear;
+}
+
+.header-social li a:hover
+{
+  color:  #00BCD4;
+  cursor:pointer;
+}
+
+ul, li
+{
+      border: none;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+.main-header:before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    width: 60px;
+    height: 1px;
+    bottom: 120px;
+    background: rgba(255,255,255,0.1);
+}
+
+
+
+.card{    border: none;
+    border-radius: 30px;
+background-color: #14edaa;}
+
+.wow-bg
+{
+      background-color: #141421;
+    border: 1px solid #2e2e4c;
+    box-shadow: 3px 9px 16px rgb(0,0,0,0.4), -3px -3px 10px rgba(255,255,255, 0.06), inset 14px 14px 26px rgb(0,0,0,0.3), inset -3px -3px 15px rgba(255,255,255, 0.05);
+  border-radius: 10px;
+  margin-top: 4px;
+}
+
+
+
+.starsec{
+  content: " ";
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: transparent;
+   box-shadow: 571px 173px #00BCD4, 1732px 143px #00BCD4, 1745px 454px #FF5722, 234px 784px #00BCD4, 1793px 1123px #FF9800, 1076px 504px #03A9F4, 633px 601px #FF5722, 350px 630px #FFEB3B, 1164px 782px #00BCD4, 76px 690px #3F51B5, 1825px 701px #CDDC39, 1646px 578px #FFEB3B, 544px 293px #2196F3, 445px 1061px #673AB7, 928px 47px #00BCD4, 168px 1410px #8BC34A, 777px 782px #9C27B0, 1235px 1941px #9C27B0, 104px 1690px #8BC34A, 1167px 1338px #E91E63, 345px 1652px #009688, 1682px 1196px #F44336, 1995px 494px #8BC34A, 428px 798px #FF5722, 340px 1623px #F44336, 605px 349px #9C27B0, 1339px 1344px #673AB7, 1102px 1745px #3F51B5, 1592px 1676px #2196F3, 419px 1024px #FF9800, 630px 1033px #4CAF50, 1995px 1644px #00BCD4, 1092px 712px #9C27B0, 1355px 606px #F44336, 622px 1881px #CDDC39, 1481px 621px #9E9E9E, 19px 1348px #8BC34A, 864px 1780px #E91E63, 442px 1136px #2196F3, 67px 712px #FF5722, 89px 1406px #F44336, 275px 321px #009688, 592px 630px #E91E63, 1012px 1690px #9C27B0, 1749px 23px #673AB7, 94px 1542px #FFEB3B, 1201px 1657px #3F51B5, 1505px 692px #2196F3, 1799px 601px #03A9F4, 656px 811px #00BCD4, 701px 597px #00BCD4, 1202px 46px #FF5722, 890px 569px #FF5722, 1613px 813px #2196F3, 223px 252px #FF9800, 983px 1093px #F44336, 726px 1029px #FFC107, 1764px 778px #CDDC39, 622px 1643px #F44336, 174px 1559px #673AB7, 212px 517px #00BCD4, 340px 505px #FFF, 1700px 39px #FFF, 1768px 516px #F44336, 849px 391px #FF9800, 228px 1824px #FFF, 1119px 1680px #FFC107, 812px 1480px #3F51B5, 1438px 1585px #CDDC39, 137px 1397px #FFF, 1080px 456px #673AB7, 1208px 1437px #03A9F4, 857px 281px #F44336, 1254px 1306px #CDDC39, 987px 990px #4CAF50, 1655px 911px #00BCD4, 1102px 1216px #FF5722, 1807px 1044px #FFF, 660px 435px #03A9F4, 299px 678px #4CAF50, 1193px 115px #FF9800, 918px 290px #CDDC39, 1447px 1422px #FFEB3B, 91px 1273px #9C27B0, 108px 223px #FFEB3B, 146px 754px #00BCD4, 461px 1446px #FF5722, 1004px 391px #673AB7, 1529px 516px #F44336, 1206px 845px #CDDC39, 347px 583px #009688, 1102px 1332px #F44336, 709px 1756px #00BCD4, 1972px 248px #FFF, 1669px 1344px #FF5722, 1132px 406px #F44336, 320px 1076px #CDDC39, 126px 943px #FFEB3B, 263px 604px #FF5722, 1546px 692px #F44336;
+  animation: animStar 150s linear infinite;
+}
+
+.starthird
+{
+  content: " ";
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: transparent;
+   box-shadow: 571px 173px #00BCD4, 1732px 143px #00BCD4, 1745px 454px #FF5722, 234px 784px #00BCD4, 1793px 1123px #FF9800, 1076px 504px #03A9F4, 633px 601px #FF5722, 350px 630px #FFEB3B, 1164px 782px #00BCD4, 76px 690px #3F51B5, 1825px 701px #CDDC39, 1646px 578px #FFEB3B, 544px 293px #2196F3, 445px 1061px #673AB7, 928px 47px #00BCD4, 168px 1410px #8BC34A, 777px 782px #9C27B0, 1235px 1941px #9C27B0, 104px 1690px #8BC34A, 1167px 1338px #E91E63, 345px 1652px #009688, 1682px 1196px #F44336, 1995px 494px #8BC34A, 428px 798px #FF5722, 340px 1623px #F44336, 605px 349px #9C27B0, 1339px 1344px #673AB7, 1102px 1745px #3F51B5, 1592px 1676px #2196F3, 419px 1024px #FF9800, 630px 1033px #4CAF50, 1995px 1644px #00BCD4, 1092px 712px #9C27B0, 1355px 606px #F44336, 622px 1881px #CDDC39, 1481px 621px #9E9E9E, 19px 1348px #8BC34A, 864px 1780px #E91E63, 442px 1136px #2196F3, 67px 712px #FF5722, 89px 1406px #F44336, 275px 321px #009688, 592px 630px #E91E63, 1012px 1690px #9C27B0, 1749px 23px #673AB7, 94px 1542px #FFEB3B, 1201px 1657px #3F51B5, 1505px 692px #2196F3, 1799px 601px #03A9F4, 656px 811px #00BCD4, 701px 597px #00BCD4, 1202px 46px #FF5722, 890px 569px #FF5722, 1613px 813px #2196F3, 223px 252px #FF9800, 983px 1093px #F44336, 726px 1029px #FFC107, 1764px 778px #CDDC39, 622px 1643px #F44336, 174px 1559px #673AB7, 212px 517px #00BCD4, 340px 505px #FFF, 1700px 39px #FFF, 1768px 516px #F44336, 849px 391px #FF9800, 228px 1824px #FFF, 1119px 1680px #FFC107, 812px 1480px #3F51B5, 1438px 1585px #CDDC39, 137px 1397px #FFF, 1080px 456px #673AB7, 1208px 1437px #03A9F4, 857px 281px #F44336, 1254px 1306px #CDDC39, 987px 990px #4CAF50, 1655px 911px #00BCD4, 1102px 1216px #FF5722, 1807px 1044px #FFF, 660px 435px #03A9F4, 299px 678px #4CAF50, 1193px 115px #FF9800, 918px 290px #CDDC39, 1447px 1422px #FFEB3B, 91px 1273px #9C27B0, 108px 223px #FFEB3B, 146px 754px #00BCD4, 461px 1446px #FF5722, 1004px 391px #673AB7, 1529px 516px #F44336, 1206px 845px #CDDC39, 347px 583px #009688, 1102px 1332px #F44336, 709px 1756px #00BCD4, 1972px 248px #FFF, 1669px 1344px #FF5722, 1132px 406px #F44336, 320px 1076px #CDDC39, 126px 943px #FFEB3B, 263px 604px #FF5722, 1546px 692px #F44336;
+  animation: animStar 10s linear infinite;
+}
+
+.starfourth
+{
+  content: " ";
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+   box-shadow: 571px 173px #00BCD4, 1732px 143px #00BCD4, 1745px 454px #FF5722, 234px 784px #00BCD4, 1793px 1123px #FF9800, 1076px 504px #03A9F4, 633px 601px #FF5722, 350px 630px #FFEB3B, 1164px 782px #00BCD4, 76px 690px #3F51B5, 1825px 701px #CDDC39, 1646px 578px #FFEB3B, 544px 293px #2196F3, 445px 1061px #673AB7, 928px 47px #00BCD4, 168px 1410px #8BC34A, 777px 782px #9C27B0, 1235px 1941px #9C27B0, 104px 1690px #8BC34A, 1167px 1338px #E91E63, 345px 1652px #009688, 1682px 1196px #F44336, 1995px 494px #8BC34A, 428px 798px #FF5722, 340px 1623px #F44336, 605px 349px #9C27B0, 1339px 1344px #673AB7, 1102px 1745px #3F51B5, 1592px 1676px #2196F3, 419px 1024px #FF9800, 630px 1033px #4CAF50, 1995px 1644px #00BCD4, 1092px 712px #9C27B0, 1355px 606px #F44336, 622px 1881px #CDDC39, 1481px 621px #9E9E9E, 19px 1348px #8BC34A, 864px 1780px #E91E63, 442px 1136px #2196F3, 67px 712px #FF5722, 89px 1406px #F44336, 275px 321px #009688, 592px 630px #E91E63, 1012px 1690px #9C27B0, 1749px 23px #673AB7, 94px 1542px #FFEB3B, 1201px 1657px #3F51B5, 1505px 692px #2196F3, 1799px 601px #03A9F4, 656px 811px #00BCD4, 701px 597px #00BCD4, 1202px 46px #FF5722, 890px 569px #FF5722, 1613px 813px #2196F3, 223px 252px #FF9800, 983px 1093px #F44336, 726px 1029px #FFC107, 1764px 778px #CDDC39, 622px 1643px #F44336, 174px 1559px #673AB7, 212px 517px #00BCD4, 340px 505px #FFF, 1700px 39px #FFF, 1768px 516px #F44336, 849px 391px #FF9800, 228px 1824px #FFF, 1119px 1680px #FFC107, 812px 1480px #3F51B5, 1438px 1585px #CDDC39, 137px 1397px #FFF, 1080px 456px #673AB7, 1208px 1437px #03A9F4, 857px 281px #F44336, 1254px 1306px #CDDC39, 987px 990px #4CAF50, 1655px 911px #00BCD4, 1102px 1216px #FF5722, 1807px 1044px #FFF, 660px 435px #03A9F4, 299px 678px #4CAF50, 1193px 115px #FF9800, 918px 290px #CDDC39, 1447px 1422px #FFEB3B, 91px 1273px #9C27B0, 108px 223px #FFEB3B, 146px 754px #00BCD4, 461px 1446px #FF5722, 1004px 391px #673AB7, 1529px 516px #F44336, 1206px 845px #CDDC39, 347px 583px #009688, 1102px 1332px #F44336, 709px 1756px #00BCD4, 1972px 248px #FFF, 1669px 1344px #FF5722, 1132px 406px #F44336, 320px 1076px #CDDC39, 126px 943px #FFEB3B, 263px 604px #FF5722, 1546px 692px #F44336;
+  animation: animStar 50s linear infinite;
+}
+
+.starfifth
+{
+  content: " ";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+   box-shadow: 571px 173px #00BCD4, 1732px 143px #00BCD4, 1745px 454px #FF5722, 234px 784px #00BCD4, 1793px 1123px #FF9800, 1076px 504px #03A9F4, 633px 601px #FF5722, 350px 630px #FFEB3B, 1164px 782px #00BCD4, 76px 690px #3F51B5, 1825px 701px #CDDC39, 1646px 578px #FFEB3B, 544px 293px #2196F3, 445px 1061px #673AB7, 928px 47px #00BCD4, 168px 1410px #8BC34A, 777px 782px #9C27B0, 1235px 1941px #9C27B0, 104px 1690px #8BC34A, 1167px 1338px #E91E63, 345px 1652px #009688, 1682px 1196px #F44336, 1995px 494px #8BC34A, 428px 798px #FF5722, 340px 1623px #F44336, 605px 349px #9C27B0, 1339px 1344px #673AB7, 1102px 1745px #3F51B5, 1592px 1676px #2196F3, 419px 1024px #FF9800, 630px 1033px #4CAF50, 1995px 1644px #00BCD4, 1092px 712px #9C27B0, 1355px 606px #F44336, 622px 1881px #CDDC39, 1481px 621px #9E9E9E, 19px 1348px #8BC34A, 864px 1780px #E91E63, 442px 1136px #2196F3, 67px 712px #FF5722, 89px 1406px #F44336, 275px 321px #009688, 592px 630px #E91E63, 1012px 1690px #9C27B0, 1749px 23px #673AB7, 94px 1542px #FFEB3B, 1201px 1657px #3F51B5, 1505px 692px #2196F3, 1799px 601px #03A9F4, 656px 811px #00BCD4, 701px 597px #00BCD4, 1202px 46px #FF5722, 890px 569px #FF5722, 1613px 813px #2196F3, 223px 252px #FF9800, 983px 1093px #F44336, 726px 1029px #FFC107, 1764px 778px #CDDC39, 622px 1643px #F44336, 174px 1559px #673AB7, 212px 517px #00BCD4, 340px 505px #FFF, 1700px 39px #FFF, 1768px 516px #F44336, 849px 391px #FF9800, 228px 1824px #FFF, 1119px 1680px #FFC107, 812px 1480px #3F51B5, 1438px 1585px #CDDC39, 137px 1397px #FFF, 1080px 456px #673AB7, 1208px 1437px #03A9F4, 857px 281px #F44336, 1254px 1306px #CDDC39, 987px 990px #4CAF50, 1655px 911px #00BCD4, 1102px 1216px #FF5722, 1807px 1044px #FFF, 660px 435px #03A9F4, 299px 678px #4CAF50, 1193px 115px #FF9800, 918px 290px #CDDC39, 1447px 1422px #FFEB3B, 91px 1273px #9C27B0, 108px 223px #FFEB3B, 146px 754px #00BCD4, 461px 1446px #FF5722, 1004px 391px #673AB7, 1529px 516px #F44336, 1206px 845px #CDDC39, 347px 583px #009688, 1102px 1332px #F44336, 709px 1756px #00BCD4, 1972px 248px #FFF, 1669px 1344px #FF5722, 1132px 406px #F44336, 320px 1076px #CDDC39, 126px 943px #FFEB3B, 263px 604px #FF5722, 1546px 692px #F44336;
+  animation: animStar 80s linear infinite;
+}
+
+@keyframes animStar
+{
+  0% {
+    transform: translateY(0px);
+}
+  100% {
+    transform: translateY(-2000px);
+}
+}
+
+
+
+.logn-btn
+{
+     background: #1c1f2f;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid #2e344d;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -ms-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+    
+    box-shadow: 0px 2px 26px rgb(0,0,0,0.5), 0px 7px 13px rgba(255,255,255, 0.03);
+    margin-top: 30px;
+}
+
+.logn-btn:hover
+{
+  background-color: #1c1f2f;
+    border-radius: 50px;
+    min-width: 140px;
+   
+    box-shadow: 3px 9px 16px rgb(0,0,0,0.4), -3px -3px 10px rgba(255,255,255, 0.06), inset 14px 14px 26px rgb(0,0,0,0.3), inset -3px -3px 15px rgba(255,255,255, 0.05);
+    border-width: 1px 0px 0px 1px;
+    border-style: solid;
+    border-color: #2e344d;
+}
+
+.textbox-dg
+{
+  background: rgba(28, 31, 47, 0.16);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #2e344d;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -ms-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+    
+    box-shadow: 10px 10px 36px rgb(0,0,0,0.5), -13px -13px 23px rgba(255,255,255, 0.03);
+    border-width: 1px 0px 0 1px;
+      margin-top: 15px;
+}
+
+
+
+.form-control:focus
+{
+  border: 1px solid #344d2e;
+  color: #495057;
+    outline: 0;
+    background: rgb(17, 20, 31);
+    border-radius: 4px;
+  transition: all 0.3s ease-in-out 0s;
+   
+    box-shadow: 10px 10px 36px rgb(0,0,0,0.5), -13px -13px 23px rgba(255,255,255, 0.03);
+}
+
+
+
+.btn-link {
+    color: #344d2e;
+}
+
+
+.btn-link:hover {
+    color: #2b7a19;
+    text-decoration: underline;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #807f7f;
+    background-color: transparent;
+    border-color: #2b7a19;
+}
+
+
+.btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: 0 0 0 0.2rem rgba(0, 255, 110, 0.25);
+}
+
+.mt-6, .my-6 {
+    margin-top: 2rem !important;
+}
+
+
+.socila-btn
+{
+  height: 40px;
+    border-radius: 10%;
+    width: 40px;
+    box-shadow: 3px 9px 16px rgb(0,0,0,0.4), -3px -3px 10px rgba(255,255,255, 0.06), inset 14px 14px 26px rgb(0,0,0,0.3), inset -3px -3px 15px rgba(255,255,255, 0.05);
+    border-width: 1px 0px 0px 1px;
+    border-style: solid;
+    border-color: rgba(255,255,255, 0.2);
+    margin-right: 10px;
+   
+}
+
+.fb-color
+{
+  color:#3b5998 ;
+}
+
+.incolor
+{
+  color:#007bff;
+}
+
+.tweetcolor
+{
+  color:#41a4f7;
+}
+.driblecolor
+{
+  color:#e83e8c;
+}
+
+.colorboard
+{
+  color: aqua;
+}
     </style>
-  </head>
-  <body>
+    
 
-<div class="preloader d-flex align-items-center justify-content-center">
-    <div class="spinner">
-        <div class="double-bounce1"></div>
-        <div class="double-bounce2"></div>
-    </div>
-</div>
+        </head>
 
-
-	<div class="container demo">
-		<div class="content">
-		   <div id="large-header" class="large-header">
-			  <canvas id="demo-canvas"></canvas>
-			  <h1 class="main-title"><span class="thin"></span> </h1>
-		   </div>
-		</div>
-	 </div>
-<form class="form-signin" method="POST">
-  <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
-  {% csrf_token %}
- 
-  <label for="email" class="sr-only">Email or Phone Number</label><br>
-  <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
-  <label for="Password" class="sr-only">Password</label><br>
-  <input type="Password" id="Password" name="password1" class="form-control" placeholder="Password" required>
- 
-  <div class="checkbox mb-3">
-   
+    <body>
+        
+        <div>
+            <div class="starsec"></div>
+            <div class="starthird"></div>
+            <div class="starfourth"></div>
+            <div class="starfifth"></div>
+        </div>
+        <form autocomplete='off' method="POST">
+            {% csrf_token %}
+        <div class="container tex-center text-dark mt-5">
+            <div class="row">
+                <div class="col-lg-4 d-block mx-auto mt-5">
+                    <div class="row">       
+                        <div class="col-xl-12 col-md-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body wow-bg" id="formBg">
+                                    <h3 class="colorboard">Login</h3>
+                                    <p class="text-muted">Sign In your account</p>
+                                    <div class="input-group mb-3"><input name='username' type='username' class="form-control textbox-dg" placeholder="Username"></div>
+                                    <div class="input-group mb-3"><input name='password' type='password' class="form-control textbox-dg" placeholder="Password"></div>
+                                    <div class="row">
+                                        <div class="col-12"><button type="submit" class="btn btn-primary btn-block logn-btn" type='submit'>Log in </button></div>
+                                        <div class="col-12"><a href="/signup" class="btn btn-link box-shadow-0 px-0" style="color:white;">Dont Have an Account?</a></div>
+                                    </div>
+                                    <div class="mt-6 btn-list">
+                                        <a href="{% url 'social:begin' 'facebook' %}" class="socila-btn btn btn-icon btn-google incolor"><i class="fab fa-facebook-f faa-flash animated"></i></a>
+                                        <a href="{% url 'social:begin' 'github' %}" class="socila-btn btn btn-icon btn-google incolor"><i class="fab fa-github faa-shake animated"></i></a>
+                                        <button class="socila-btn btn btn-icon btn-twitter tweetcolor">
+                                          <a href="{% url 'social:begin' 'github' %}"></a>
+                                        </button>
+                                        <button type="button" class="socila-btn btn btn-icon btn-dribbble driblecolor">
+                                            <i class="fab fa-dribbble faa-pulse animated"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
       
-  
-  </div>
- 
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-  {% if error %}
-{{ error }}
-{% endif %}
-  <a href="#">Forgot Password?</a><br>
-  <a href="/signup/">New User? SignUp Here</a>
-  <br><a href="verify/">temporary link for Anurag</a>
-  <p class="mt-5 mb-3 text-muted">&copy; StrangeFlix</p>
-</form>
-<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/TweenLite.min.js"></script>
-<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/EasePack.min.js"></script>
-<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo.js"></script>
-
-
-    <script src="{% static 'js/jquery/jquery-2.2.4.min.js'%}"></script>
-   
-    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
-   
-    <script src="{% static 'js/bootstrap/bootstrap.min.js'%}"></script>
-   
-    <script src="{% static 'js/plugins/plugins.js'%}"></script>
-   
-    <script src="{% static 'js/active.js'%}"></script>
-</body>
-</html>
- -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="/script.js"></script> 
+    </body>
+</html>  
+{% endblock %}

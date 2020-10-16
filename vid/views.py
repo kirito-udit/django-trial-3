@@ -14,19 +14,19 @@ def video(request):
     return render(request,'video.html',{'obj':obj})
 
 # THIS FUNCTION RETURNS THE PAYMENT REQUEST
- #@login_required   
+@login_required   
 def payment(request, title):
     school = get_object_or_404(Detail, pk=title)
     return render(request,'payment.html',{'school': school})
 
 # THIS FUNCTION RETURNS THE THUMBNAIL REQUESTS ie THE HOME PAGE OF A USER
-
+@login_required
 def thumbnail(request):
     obj2 = Detail.objects.all()
     return render (request,'thumbnail.html',{'obj2':obj2})
 
 # THIS FUNCTION RENDERS THE PAGE TO CORRESPONDING VIDEO PLAYER FOR THE SELECTED THUMBNAIL
-
+@login_required
 def vidDetails(request, title):
     school = get_object_or_404(Detail, pk=title)
     return render(request, 'show.html', {'school': school})
@@ -42,17 +42,6 @@ def search(request):
     return  render(request,'search.html',{'query': query,
                                           'results': results}) 
 @login_required
-def comment(request,title):
-        comm = request.POST("comment")
-        com2 = Comment.objects.all.filter(pk = title)
-        com2.content = comm
-        if com2.is_valid:
-            comm2.save()
-            return HttpResponse(resp)
-        else:
-           return HttpResponse('NOt Done')
-
-
 def likepost(request, title):
     post = get_object_or_404(Detail,pk = title)
     is_liked = False
@@ -69,3 +58,44 @@ def likepost(request, title):
     }
     html = render_to_string('like.html',context, request = request)
     return JsonResponse({'like':html})
+
+def vidplay(request, title):
+    school = get_object_or_404(Detail, pk=title)
+    return render(request, 'player.html', {'school': school})
+
+
+@login_required
+def reportpost(request, title):
+    post = get_object_or_404(Detail,pk = title)
+    is_reported = False
+    if (post.reporters.filter(username = request.user.username).exists()):
+        post.reporters.remove(request.user)
+        is_reported = False
+    else:
+        post.reporters.add(request.user)
+        is_reported = True
+
+    context = {
+        'is_reported' : is_reported,
+        'school' : post
+    }
+    html = render_to_string('report.html',context, request = request)
+    return JsonResponse({'report':html})
+
+@login_required
+def commentpost(request, title):
+    post = get_object_or_404(Comment,pk = title)
+    is_commented = False
+    if (post.commenters.filter(username = request.user.username).exists()):
+        post.commenters.remove(request.user)
+        is_commented = False
+    else:
+        post.commenters.add(request.user)
+        is_commented = True
+
+    context = {
+        'is_commented' : is_commented,
+        'school' : post
+    }
+    html = render_to_string('comment.html',context, request = request)
+    return JsonResponse({'comment':html})

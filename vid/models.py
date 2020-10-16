@@ -18,6 +18,7 @@ class Detail(models.Model):
      vid = models.FileField(upload_to='videos', null=True)
      #subtitle = models.FileField(upload_to='subtitle', null=True)
      likers = models.ManyToManyField(User, related_name = 'likers', blank = True)
+     reporters = models.ManyToManyField(User, related_name = 'reporters', blank = True)
      def __str__(self):
          return self.title
 

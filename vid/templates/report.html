@@ -1,0 +1,19 @@
+<div class="container center">
+   <!---- {% if user.is_authenticated %} -->
+
+    <form action = "{% url 'report-post' school.pk %}" method = "post">
+      {% csrf_token %}
+      {% if not is_reported %}
+    <a name = "post_id" id = "report" class = "btn-floating pink lighten-2 " value = "{{post.id}}" type = "submit">     <i id="love" class="material-icons white-text">Flag as Inappropriate</i>          </a>
+
+     {% else %}
+     <a name = "post_id" id = "report" class = "btn-floating pink lighten-2 " value = "{{post.id}}" type = "submit">     <i id="love" class="material-icons red-text">Flag as Inappropriate</i>      </a>
+
+     {% endif %}
+     <p>{{school.reporters.count}} people reported</p>
+    </form>
+    {% else %}
+    <button> {{post.reporters.count}} reporters </button>
+    {% endif %}
+
+</div>
